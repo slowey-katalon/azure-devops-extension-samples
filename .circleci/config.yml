@@ -1,0 +1,18 @@
+version: 2.1
+
+workflows:
+  build:
+    jobs:
+      - katalon-runner
+
+jobs:
+  katalon-runner:
+    machine: true
+    resource_class: demo-self-hosted/slowey
+    steps:
+      - checkout
+      - run:
+          name: Run Katalon Tests
+          command: >
+            ./katalon -browserType='Chrome' -retry=0 -statusDelay=15 
+            -testSuitePath='Test Suites/TS_RegressionTest'
